@@ -1,0 +1,46 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12 black-card">
+            <h1>
+                @Html.Raw(Model.Text)
+            </h1>
+
+            <a class="skip-card" href="/">Skip Card</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 submitted">
+            <h2>Submitted <a href="#" class="btn btn-default refresh">↻</a></h2>
+            <ul id="submittedPlayers">
+            </ul>
+            <p>
+                <a class="btn btn-default go-button" href="#">Go...</a>
+            </p>
+        </div>
+    </div>
+    <div class="answers">
+        <div class="row">
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="white-card-group" class="list-group">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr />
+            <div class="col-md-12">
+                <a href="#" class="select-answer btn btn-primary">Select Card <span class="card-number"></span> As Winner ❯</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron winner-display">
+        <p>The winner is...</p>
+        <h1 class="winner-name"></h1>
+        <a href="/" class="new-round btn btn-primary">New Round ❯</a>
+        <a href="#" class="go-back">Jk I fucked up, go back please.</a>
+    </div>
+</div>

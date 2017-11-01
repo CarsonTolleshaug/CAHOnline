@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Player";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Player</h1>
+            <div class="form-group">
+                <label for="input-player-name">Name:</label>
+                <input type="text" id="input-player-name" name="input-player-name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="input-player-answer">Answer:</label>
+                <textarea id="input-player-answer" name="input-player-answer" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <a href="#" class="submit-answer btn btn-primary">Submit Answer</a>
+            </div>
+
+            <div class="alert alert-success submit-successful-message closable">
+                <a href="#" class="close-button">╳</a>
+                <strong>Success!</strong> Your answer has been successfully submitted. You can update your answer at any point by resubmitting.
+            </div>
+            <div class="alert alert-danger submit-failed-message closable">
+                <a href="#" class="close-button">╳</a>
+                <strong>Error:</strong> <span class="submit-failed-message-text"></span>
+            </div>
+        </div>
+    </div>
+</div>
+

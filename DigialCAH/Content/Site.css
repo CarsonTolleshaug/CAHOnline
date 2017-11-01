@@ -1,0 +1,101 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.black-card {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: #080808;
+    color: white;
+    padding: 30px;
+    border-radius:18px;
+}
+
+.submitted {
+    margin-top: 15px;
+}
+
+.white-card {
+    display: block;
+    float: left;
+    padding: 25px 25px;
+    margin-right: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.blank {
+    display: inline-block;
+    min-width: 100px;
+    border-bottom: 2px solid white;
+}
+
+.card-number {
+    font-weight: bold;
+}
+
+.answers {
+    display:none;
+}
+
+.winner-display {
+    display: none;
+    margin-top: 15px;
+}
+
+.new-round {
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+.go-back {
+    display: block;
+    margin-top: 15px;
+    font-size: 9pt;
+}
+
+.alert {
+    display: none;
+}
+
+.skip-card {
+    color: white;
+    font-size: 10px;
+    float: right;
+    text-decoration: underline;
+    display: block;
+}
+
+.refresh {
+    font-size: 24px;
+    padding: 2px 4px 4px 2px;
+    line-height: 20px;
+    margin-bottom: 6px;
+}
+
+.close-button {
+    color: inherit;
+    opacity: 0.4;
+    padding-right: 6px;
+    font-weight: bold;
+    font-size: 10px;
+    vertical-align: middle;
+}
+
+.close-button:hover {
+    color: inherit;
+    opacity: 0.8;
+    text-decoration:none;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
