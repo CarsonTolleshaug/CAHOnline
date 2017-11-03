@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigialCAH", "DigialCAH\DigialCAH.csproj", "{075F68C2-9484-4103-9ADF-AD1C502B5D8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAHOnline", "CAHOnline\CAHOnline.csproj", "{075F68C2-9484-4103-9ADF-AD1C502B5D8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigialCAH.Tests", "DigialCAH.Tests\DigialCAH.Tests.csproj", "{57662CE1-9BC4-4ADC-B84B-AFBD1F566DD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAHOnline.Tests", "CAHOnline.Tests\CAHOnline.Tests.csproj", "{57662CE1-9BC4-4ADC-B84B-AFBD1F566DD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
