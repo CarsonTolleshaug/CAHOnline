@@ -20,7 +20,7 @@ namespace CAHOnline.Tests
                 new FakeBlackCard("foo")
             });
 
-            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(0));
+            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(new List<int>()));
             IEnumerable<IBlackCard> blackCards = blackCardsController.Get();
             blackCards.Single().Text.Should().Be("foo");
         }
@@ -34,7 +34,7 @@ namespace CAHOnline.Tests
                 new FakeBlackCard("bar")
             });
 
-            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(0));
+            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(new List<int>()));
             IBlackCard blackCard = blackCardsController.Get(1);
             blackCard.Text.Should().Be("bar");
         }
@@ -49,9 +49,16 @@ namespace CAHOnline.Tests
                 new FakeBlackCard("baz")
             });
 
-            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(1));
+            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(new List<int> { 1, 0, 2 }));
+
             IBlackCard blackCard = blackCardsController.GetRandom();
             blackCard.Text.Should().Be("bar");
+
+            blackCard = blackCardsController.GetRandom();
+            blackCard.Text.Should().Be("foo");
+
+            blackCard = blackCardsController.GetRandom();
+            blackCard.Text.Should().Be("baz");
         }
     }
 
@@ -87,18 +94,22 @@ namespace CAHOnline.Tests
         }
     }
 
+    // Real random order should take int max in constructor and generate a list of indexes
+    // also need to create RandomOrderCache class
     public class FakeRandomOrder : IRandomOrder
     {
-        private readonly int _returnValue;
+        private readonly IEnumerator<int> _order;
 
-        public FakeRandomOrder(int returnValue)
+        public FakeRandomOrder(IEnumerable<int> order)
         {
-            _returnValue = returnValue;
+            _order = order.GetEnumerator();
         }
 
         public int NextIndex()
         {
-            return _returnValue;
+            _order.MoveNext();
+            int next = _order.Current;
+            return next;
         }
     }
 }
