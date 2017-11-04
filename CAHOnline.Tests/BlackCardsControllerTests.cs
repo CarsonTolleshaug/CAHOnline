@@ -3,8 +3,9 @@ using CAHOnline.Models;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
-using System;
 using System.Linq;
+using System.Runtime.Caching;
+using System;
 
 namespace CAHOnline.Tests
 {
@@ -19,7 +20,7 @@ namespace CAHOnline.Tests
                 new FakeBlackCard("foo")
             });
 
-            BlackCardsController blackCardsController = new BlackCardsController(source);
+            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(0));
             IEnumerable<IBlackCard> blackCards = blackCardsController.Get();
             blackCards.Single().Text.Should().Be("foo");
         }
@@ -33,8 +34,23 @@ namespace CAHOnline.Tests
                 new FakeBlackCard("bar")
             });
 
-            BlackCardsController blackCardsController = new BlackCardsController(source);
+            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(0));
             IBlackCard blackCard = blackCardsController.Get(1);
+            blackCard.Text.Should().Be("bar");
+        }
+
+        [TestMethod]
+        public void ShouldProvideRandomBlackCard()
+        {
+            IBlackCardsSource source = new FakeBlackCardsSource(new List<IBlackCard>
+            {
+                new FakeBlackCard("foo"),
+                new FakeBlackCard("bar"),
+                new FakeBlackCard("baz")
+            });
+
+            BlackCardsController blackCardsController = new BlackCardsController(source, new FakeRandomOrder(1));
+            IBlackCard blackCard = blackCardsController.GetRandom();
             blackCard.Text.Should().Be("bar");
         }
     }
@@ -68,6 +84,21 @@ namespace CAHOnline.Tests
         public IBlackCard CardWithKey(int key)
         {
             return _cards[key];
+        }
+    }
+
+    public class FakeRandomOrder : IRandomOrder
+    {
+        private readonly int _returnValue;
+
+        public FakeRandomOrder(int returnValue)
+        {
+            _returnValue = returnValue;
+        }
+
+        public int NextIndex()
+        {
+            return _returnValue;
         }
     }
 }
