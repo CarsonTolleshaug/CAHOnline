@@ -104,6 +104,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BlackCardsControllerTests.cs" />
     <Compile Include="BlackCardTextTests.cs" />
+    <Compile Include="EnumerableExtensionsTests.cs" />
+    <Compile Include="CardCacheTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

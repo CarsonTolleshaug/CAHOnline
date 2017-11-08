@@ -9,13 +9,11 @@ namespace CAHOnline.Controllers
 {
     public class BlackCardsController : ApiController
     {
-        private readonly IBlackCardsSource _source;
-        private readonly IRandomOrder _randomOrder;
+        private readonly IBlackCardSource _source;
 
-        public BlackCardsController(IBlackCardsSource source, IRandomOrder randomOrder)
+        public BlackCardsController(IBlackCardSource source)
         {
             _source = source;
-            _randomOrder = randomOrder;
         }
 
         // GET api/blackcards
@@ -28,12 +26,6 @@ namespace CAHOnline.Controllers
         public IBlackCard Get(int key)
         {
             return _source.CardWithKey(key);
-        }
-
-        [HttpGet, Route("api/blackcards/random")]
-        public IBlackCard GetRandom()
-        {
-            return _source.CardWithKey(_randomOrder.NextIndex());
         }
     }
 }
