@@ -61,7 +61,7 @@ namespace CAHOnline.Tests
             _cards = cards;
         }
 
-        public ICollection<IBlackCard> All()
+        public IEnumerable<IBlackCard> All()
         {
             return _cards;
         }

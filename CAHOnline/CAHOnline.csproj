@@ -185,11 +185,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BlackCardText.cs" />
+    <Compile Include="Models\CardCache.cs" />
     <Compile Include="Models\EnumerableExtensions.cs" />
     <Compile Include="Models\ICard.cs" />
     <Compile Include="Models\ICardSource.cs" />
     <Compile Include="Models\BlackCard.cs" />
     <Compile Include="Models\ICardText.cs" />
+    <Compile Include="Models\RandomizedCardSource.cs" />
     <Compile Include="Models\RandomWrapper.cs" />
     <Compile Include="Models\WhiteCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
