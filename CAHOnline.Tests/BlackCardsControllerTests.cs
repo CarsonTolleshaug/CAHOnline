@@ -15,7 +15,7 @@ namespace CAHOnline.Tests
         [TestMethod]
         public void ShouldProvideBlackCard()
         {
-            ICardCache<IBlackCard> fakeCache = new FakeCardCache<IBlackCard>(new List<IBlackCard>
+            ICardCache fakeCache = new FakeCardCache(new List<ICard>
             {
                 new FakeBlackCard("foo"),
                 new FakeBlackCard("bar"),
@@ -23,7 +23,7 @@ namespace CAHOnline.Tests
             });
             BlackCardsController blackCardsController = new BlackCardsController(fakeCache);
 
-            IBlackCard card = blackCardsController.GetNext();
+            ICard card = blackCardsController.GetNext();
 
             card.Text.Should().Be("foo");
         }        
@@ -41,39 +41,19 @@ namespace CAHOnline.Tests
         public string Text => _text;
     }
 
-    public class FakeCardCache<T> : ICardCache<T> where T : ICard
+    public class FakeCardCache : ICardCache
     {
-        private readonly IEnumerator<T> _cards;
+        private readonly IEnumerator<ICard> _cards;
 
-        public FakeCardCache(IEnumerable<T> cards)
+        public FakeCardCache(IEnumerable<ICard> cards)
         {
             _cards = cards.GetEnumerator();
         }
 
-        public T NextCard()
+        public ICard NextCard()
         {
             _cards.MoveNext();
             return _cards.Current;
-        }
-    }
-
-    public class FakeBlackCardsSource : ICardSource<IBlackCard>
-    {
-        private readonly IList<IBlackCard> _cards;
-
-        public FakeBlackCardsSource(IList<IBlackCard> cards)
-        {
-            _cards = cards;
-        }
-
-        public IEnumerable<IBlackCard> All()
-        {
-            return _cards;
-        }
-
-        public IBlackCard CardWithKey(int key)
-        {
-            return _cards[key];
         }
     }
 }

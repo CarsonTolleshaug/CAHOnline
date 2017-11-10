@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CAHOnline.Models
 {
-    public class FileCardSource<T> : ICardSource<T> where T : ICard
+    public class FileCardSource<T> : ICardSource where T : ICard
     {
         private readonly string _file;
 
@@ -14,14 +14,15 @@ namespace CAHOnline.Models
             _file = file;
         }
 
-        public IEnumerable<T> All()
+        public IEnumerable<ICard> All()
         {
             string json = File.ReadAllText(_file);
 
-            return JsonConvert.DeserializeObject<T[]>(json);
+            T[] cards = JsonConvert.DeserializeObject<T[]>(json);
+            return cards.Cast<ICard>();
         }
 
-        public T CardWithKey(int key)
+        public ICard CardWithKey(int key)
         {
             return All().ToArray()[key];
         }

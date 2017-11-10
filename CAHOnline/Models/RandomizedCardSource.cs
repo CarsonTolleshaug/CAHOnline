@@ -5,25 +5,25 @@ using System.Web;
 
 namespace CAHOnline.Models
 {
-    public class RandomizedCardSource<T> : ICardSource<T> where T : ICard
+    public class RandomizedCardSource : ICardSource
     {
-        private readonly ICardSource<T> _source;
+        private readonly ICardSource _source;
         private readonly IRandom _random;
 
-        public RandomizedCardSource(ICardSource<T> source) : this(source, new RandomWrapper()) { }
+        public RandomizedCardSource(ICardSource source) : this(source, new RandomWrapper()) { }
 
-        public RandomizedCardSource(ICardSource<T> source, IRandom random)
+        public RandomizedCardSource(ICardSource source, IRandom random)
         {
             _source = source;
             _random = random;
         }
 
-        public IEnumerable<T> All()
+        public IEnumerable<ICard> All()
         {
             return _source.All().Randomize(_random);
         }
 
-        public T CardWithKey(int key)
+        public ICard CardWithKey(int key)
         {
             return _source.CardWithKey(key);
         }

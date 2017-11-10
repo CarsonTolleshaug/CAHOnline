@@ -9,10 +9,10 @@ namespace CAHOnline.Controllers
     public class SubmittedCardsController : ApiController
     {
         private static readonly Random _rand = new Random();
-        private static readonly List<WhiteCard> _whiteCards = new List<WhiteCard>();
+        private static readonly List<SubmittedCard> _whiteCards = new List<SubmittedCard>();
 
         // GET api/submittedcards
-        public IEnumerable<WhiteCard> Get()
+        public IEnumerable<SubmittedCard> Get()
         {
             return _whiteCards.OrderBy(c => c.RandomOrder);
         }
@@ -26,7 +26,7 @@ namespace CAHOnline.Controllers
         // PUT api/submittedcards/5
         public void Put(string id, [FromBody]string answer)
         {
-            WhiteCard card = CardToUpdate(id);
+            SubmittedCard card = CardToUpdate(id);
             card.Answer = answer;
         }
 
@@ -42,12 +42,12 @@ namespace CAHOnline.Controllers
         {
         }
 
-        private WhiteCard CardToUpdate(string owner)
+        private SubmittedCard CardToUpdate(string owner)
         {
-            WhiteCard card = _whiteCards.FirstOrDefault(c => c.Owner == owner);
+            SubmittedCard card = _whiteCards.FirstOrDefault(c => c.Owner == owner);
             if (card != null) return card;
 
-            card = new WhiteCard(_rand) { Owner = owner };
+            card = new SubmittedCard(_rand) { Owner = owner };
             _whiteCards.Add(card);
             return card;
         }

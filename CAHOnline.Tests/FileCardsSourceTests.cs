@@ -38,14 +38,25 @@ namespace CAHOnline.Tests
                 new FakeCard("bar"),
                 new FakeCard("baz")
             });
-            ICardSource<FakeCard> fileSource = new FileCardSource<FakeCard>(file);
+            ICardSource fileSource = new FileCardSource<FakeCard>(file);
 
-            List<FakeCard> cards = fileSource.All().ToList();
+            List<ICard> cards = fileSource.All().ToList();
 
             cards.Count.Should().Be(3);
             cards[0].Text.Should().Be("foo");
             cards[1].Text.Should().Be("bar");
             cards[2].Text.Should().Be("baz");
+        }
+
+        [TestMethod, TestCategory("functional")]
+        public void ShouldReadRealCards()
+        {
+            string file = "Data\\cards.json";
+            ICardSource fileSource = new FileCardSource<BlackCard>(file);
+
+            List<ICard> cards = fileSource.All().ToList();
+
+            cards.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
@@ -57,9 +68,9 @@ namespace CAHOnline.Tests
                 new FakeCard("bar"),
                 new FakeCard("baz")
             });
-            ICardSource<FakeCard> fileSource = new FileCardSource<FakeCard>(file);
+            ICardSource fileSource = new FileCardSource<FakeCard>(file);
 
-            FakeCard card = fileSource.CardWithKey(1);
+            ICard card = fileSource.CardWithKey(1);
 
             card.Text.Should().Be("bar");
         }

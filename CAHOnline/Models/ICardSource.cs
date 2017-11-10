@@ -2,9 +2,9 @@
 
 namespace CAHOnline.Models
 {
-    public interface ICardSource<T> where T : ICard
+    public interface ICardSource
     {
-        IEnumerable<T> All();
-        T CardWithKey(int key);
+        IEnumerable<ICard> All();
+        ICard CardWithKey(int key);
     }
 }

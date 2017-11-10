@@ -6,38 +6,38 @@ using System.Web;
 
 namespace CAHOnline.Models
 {
-    public interface ICardCache<T> where T : ICard
+    public interface ICardCache
     {
-        T NextCard();
+        ICard NextCard();
     }
 
-    public class CardCache<T> : ICardCache<T> where T : ICard
+    public class CardCache : ICardCache
     {
         private readonly string _key;
         private readonly MemoryCache _cache;
-        private readonly ICardSource<T> _source;
+        private readonly ICardSource _source;
 
-        public CardCache(ICardSource<T> source) : this(source, typeof(T).ToString(), MemoryCache.Default) { }
+        public CardCache(ICardSource source, string key) : this(source, key, MemoryCache.Default) { }
 
-        public CardCache(ICardSource<T> source, string key, MemoryCache cache)
+        public CardCache(ICardSource source, string key, MemoryCache cache)
         {
             _key = key;
             _cache = cache;
             _source = source;
         }
 
-        public T NextCard()
+        public ICard NextCard()
         {
-            IEnumerator<T> enumerator = CardsEnumerator();
+            IEnumerator<ICard> enumerator = CardsEnumerator();
             enumerator.MoveNext();
             return enumerator.Current;
         }
 
-        private IEnumerator<T> CardsEnumerator()
+        private IEnumerator<ICard> CardsEnumerator()
         {
-            if (_cache.Contains(_key)) return (IEnumerator<T>)_cache.Get(_key);
+            if (_cache.Contains(_key)) return (IEnumerator<ICard>)_cache.Get(_key);
 
-            IEnumerator<T> enumerator = _source.All().GetEnumerator();
+            IEnumerator<ICard> enumerator = _source.All().GetEnumerator();
             _cache.Add(new CacheItem(_key, enumerator), new CacheItemPolicy
             {
                 AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)

@@ -10,13 +10,7 @@ namespace CAHOnline.Controllers
     {
         private readonly Random _rand = new Random();
         private readonly SubmittedCardsController _submittedCards = new SubmittedCardsController();
-        private readonly BlackCardsController _blackCards; 
-
-        public HomeController()
-        {
-            string file = Server.MapPath("~/Data/cards.json");
-            _blackCards = new BlackCardsController(file);
-        }
+        private readonly BlackCardsController _blackCards = new BlackCardsController();
 
         public ActionResult Index()
         {
@@ -24,7 +18,7 @@ namespace CAHOnline.Controllers
 
             _submittedCards.ClearExistingCards();
 
-            IBlackCard model = _blackCards.GetNext();
+            ICard model = _blackCards.GetNext();
 
             return View(model);
         }
