@@ -29,6 +29,10 @@ namespace CAHOnline.Models
         public ICard NextCard()
         {
             IEnumerator<ICard> enumerator = CardsEnumerator();
+
+            if (enumerator.MoveNext()) return enumerator.Current;
+
+            enumerator = CardsEnumeratorFromSource();
             enumerator.MoveNext();
             return enumerator.Current;
         }
@@ -37,6 +41,11 @@ namespace CAHOnline.Models
         {
             if (_cache.Contains(_key)) return (IEnumerator<ICard>)_cache.Get(_key);
 
+            return CardsEnumeratorFromSource();
+        }
+
+        private IEnumerator<ICard> CardsEnumeratorFromSource()
+        {
             IEnumerator<ICard> enumerator = _source.All().GetEnumerator();
             _cache.Add(new CacheItem(_key, enumerator), new CacheItemPolicy
             {

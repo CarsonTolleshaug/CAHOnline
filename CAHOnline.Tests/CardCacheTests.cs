@@ -55,6 +55,20 @@ namespace CAHOnline.Tests
             cachedEnumerator.Should().NotBeNull();
             cachedEnumerator.Current.Text.Should().Be(expected);
         }
+
+        [TestMethod]
+        public void ShouldReloadAllCardsAtEndOfEnumerable()
+        {
+            const string expected = "foo";
+            FakeCardSource fakeCardSource = new FakeCardSource(new List<ICard> { new FakeCard(expected), new FakeCard("unexpected") });
+            CardCache cardCache = new CardCache(fakeCardSource, "fakeCards", MemoryCache.Default);
+
+            cardCache.NextCard();
+            cardCache.NextCard();
+            ICard card = cardCache.NextCard();
+
+            card.Text.Should().Be(expected);
+        }
     }
 
     public class FakeCard : ICard

@@ -107,6 +107,22 @@ $(document).ready(function () {
         return false;
     });
 
+    $(".get-whitecard").click(function () {
+        $.ajax({
+            url: "/api/whitecards/next",
+            method: "GET",
+            success: function (data) {
+                $("#input-player-answer").text(data.Text);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $(".submit-failed-message-text").text(errorThrown);
+                $(".submit-failed-message").show();
+            }
+        });
+
+        return false;
+    });
+
     $(".close-button").click(function () {
         $(this).parent(".closable").hide();
         return false;
