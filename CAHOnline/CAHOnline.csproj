@@ -187,6 +187,7 @@
     <Compile Include="Models\BlackCardText.cs" />
     <Compile Include="Models\CardCache.cs" />
     <Compile Include="Models\EnumerableExtensions.cs" />
+    <Compile Include="Models\FileCardSource.cs" />
     <Compile Include="Models\ICard.cs" />
     <Compile Include="Models\ICardSource.cs" />
     <Compile Include="Models\BlackCard.cs" />

@@ -7,6 +7,4 @@ namespace CAHOnline.Models
         IEnumerable<T> All();
         T CardWithKey(int key);
     }
-
-    public interface IBlackCardSource : ICardSource<IBlackCard> { }
 }

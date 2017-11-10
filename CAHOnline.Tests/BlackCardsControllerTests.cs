@@ -13,31 +13,20 @@ namespace CAHOnline.Tests
     public class BlackCardsControllerTests
     {
         [TestMethod]
-        public void ShouldProvideBlackCards()
-        {
-            IBlackCardSource source = new FakeBlackCardsSource(new List<IBlackCard>
-            {
-                new FakeBlackCard("foo")
-            });
-
-            BlackCardsController blackCardsController = new BlackCardsController(source);
-            IEnumerable<IBlackCard> blackCards = blackCardsController.Get();
-            blackCards.Single().Text.Should().Be("foo");
-        }
-
-        [TestMethod]
         public void ShouldProvideBlackCard()
         {
-            IBlackCardSource source = new FakeBlackCardsSource(new List<IBlackCard>
+            ICardCache<IBlackCard> fakeCache = new FakeCardCache<IBlackCard>(new List<IBlackCard>
             {
                 new FakeBlackCard("foo"),
-                new FakeBlackCard("bar")
+                new FakeBlackCard("bar"),
+                new FakeBlackCard("baz")
             });
+            BlackCardsController blackCardsController = new BlackCardsController(fakeCache);
 
-            BlackCardsController blackCardsController = new BlackCardsController(source);
-            IBlackCard blackCard = blackCardsController.Get(1);
-            blackCard.Text.Should().Be("bar");
-        }
+            IBlackCard card = blackCardsController.GetNext();
+
+            card.Text.Should().Be("foo");
+        }        
     }
 
     public class FakeBlackCard : IBlackCard
@@ -52,7 +41,23 @@ namespace CAHOnline.Tests
         public string Text => _text;
     }
 
-    public class FakeBlackCardsSource : IBlackCardSource
+    public class FakeCardCache<T> : ICardCache<T> where T : ICard
+    {
+        private readonly IEnumerator<T> _cards;
+
+        public FakeCardCache(IEnumerable<T> cards)
+        {
+            _cards = cards.GetEnumerator();
+        }
+
+        public T NextCard()
+        {
+            _cards.MoveNext();
+            return _cards.Current;
+        }
+    }
+
+    public class FakeBlackCardsSource : ICardSource<IBlackCard>
     {
         private readonly IList<IBlackCard> _cards;
 

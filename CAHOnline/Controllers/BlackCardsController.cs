@@ -6,23 +6,21 @@ namespace CAHOnline.Controllers
 {
     public class BlackCardsController : ApiController
     {
-        private readonly IBlackCardSource _source;
+        private readonly ICardCache<IBlackCard> _cache;
+        
+        public BlackCardsController(string file) : this(new FileCardSource<IBlackCard>(file)) { }
 
-        public BlackCardsController(IBlackCardSource source)
+        public BlackCardsController(ICardSource<IBlackCard> source) : this(new CardCache<IBlackCard>(new RandomizedCardSource<IBlackCard>(source))) { }
+
+        public BlackCardsController(ICardCache<IBlackCard> cache)
         {
-            _source = source;
+            _cache = cache;
         }
-
-        // GET api/blackcards
-        public IEnumerable<IBlackCard> Get()
+        
+        [HttpGet, Route("api/blackcards/next")]
+        public IBlackCard GetNext()
         {
-            return _source.All();
-        }
-
-        // GET api/blackcards/1
-        public IBlackCard Get(int key)
-        {
-            return _source.CardWithKey(key);
+            return _cache.NextCard();
         }
     }
 }

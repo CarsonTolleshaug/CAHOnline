@@ -106,6 +106,7 @@
     <Compile Include="BlackCardTextTests.cs" />
     <Compile Include="EnumerableExtensionsTests.cs" />
     <Compile Include="CardCacheTests.cs" />
+    <Compile Include="FileCardsSourceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
